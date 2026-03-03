@@ -19,7 +19,8 @@ services:
   - type: worker
     name: mongo
     env: docker
-    dockerFilePath: ./Dockerfile.mongo
+    dockerContext: .
+    dockerfilePath: ./Dockerfile.mongo
     disk:
       name: mongo-data
       mountPath: /data/db
