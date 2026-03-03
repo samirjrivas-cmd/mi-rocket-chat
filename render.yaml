@@ -1,0 +1,26 @@
+services:
+  # El servicio de Rocket.Chat
+  - type: web
+    name: rocket-chat-app
+    env: docker
+    plan: free # O el plan que elijas
+    region: ohio # Elige la más cercana a ti
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: MONGO_URL
+        value: mongodb://mongo:27017/rocketchat
+      - key: MONGO_OPLOG_URL
+        value: mongodb://mongo:27017/local?replSet=rs0
+      - key: ROOT_URL
+        value: https://tu-app.onrender.com # Cambia esto por tu URL de Render luego
+
+  # El servicio de MongoDB
+  - type: worker
+    name: mongo
+    env: docker
+    dockerFilePath: ./Dockerfile.mongo
+    disk:
+      name: mongo-data
+      mountPath: /data/db
+      sizeGB: 1
